@@ -1,10 +1,12 @@
 package com.task.recruiting.entity;
 
 import com.sun.istack.NotNull;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.List;
 
 @Entity
@@ -16,7 +18,7 @@ import java.util.List;
 public class Resume {
     @Id
     @Column(name = "\"id\"")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(name = "\"fido\"")
@@ -26,6 +28,7 @@ public class Resume {
     @Column(name = "\"positions\"")
     @NotNull
     private String position;
+
     @Column(name = "\"previousPlace\"")
     private String previousPlace;
 
@@ -40,13 +43,16 @@ public class Resume {
     @Column(name = "\"about\"")
     private String about;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "\"users_skills\"",
             joinColumns = {@JoinColumn(name = "\"user_id\"")},
             inverseJoinColumns = {@JoinColumn(name = "\"skills_id\"")})
     private List<Skills> skills;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinTable(name = "\"category_user\"",
+            joinColumns = {@JoinColumn(name = "\"user_id\"")},
+            inverseJoinColumns = {@JoinColumn(name = "\"category_id\"")})
     private ResponseCategory responseCategory;
 
     public Resume() {

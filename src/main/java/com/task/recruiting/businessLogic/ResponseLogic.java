@@ -1,15 +1,14 @@
 package com.task.recruiting.businessLogic;
 
-import com.task.recruiting.entity.*;
+import com.task.recruiting.entity.BadCompany;
+import com.task.recruiting.entity.BlacklistFido;
+import com.task.recruiting.entity.ResponseCategory;
+import com.task.recruiting.entity.Resume;
 import com.task.recruiting.reposotory.BadCompanyRepo;
 import com.task.recruiting.reposotory.BlacklistFidoRepo;
 import com.task.recruiting.reposotory.ResponseCategoryRepo;
-import lombok.Getter;
-import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 
 
 @Controller
@@ -67,11 +66,10 @@ public class ResponseLogic {
         else if (salary > 3000) {
             return setCategory(3L, resume);
         }
-        return resume;
+        return setCategory(5L, resume);
     }
 
     private Resume setCategory(long category, Resume resume) {
-        System.out.println(category);
         ResponseCategory responseCategory = responseCategoryRepo.findById(category).get();
         resume.setResponseCategory(responseCategory);
         return resume;
