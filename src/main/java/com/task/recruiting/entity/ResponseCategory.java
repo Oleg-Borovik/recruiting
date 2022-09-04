@@ -4,9 +4,12 @@ import lombok.Data;
 
 import javax.persistence.*;
 
+/**
+ * Сущность таблицы response_category
+ */
 @Entity
 @Data
-@Table(name = "responseCategory")
+@Table(name = "response_category")
 public class ResponseCategory {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)

@@ -4,9 +4,12 @@ import lombok.Data;
 
 import javax.persistence.*;
 
+/**
+ * Сущность таблицы bad_company
+ */
 @Entity
 @Data
-@Table(name = "BadCompany")
+@Table(name = "bad_company")
 public class BadCompany {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

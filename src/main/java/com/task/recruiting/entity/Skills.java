@@ -4,10 +4,12 @@ import lombok.Data;
 import lombok.ToString;
 
 import javax.persistence.*;
-
+/**
+ * Сущность таблицы skills
+ */
 @Entity
 @Data
-@Table(name = "Skills")
+@Table(name = "skills")
 @ToString
 public class Skills {
     @Id

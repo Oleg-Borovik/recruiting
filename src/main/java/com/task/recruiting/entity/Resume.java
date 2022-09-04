@@ -8,7 +8,9 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.List;
-
+/**
+ * Сущность таблицы resume
+ */
 @Entity
 @Getter
 @Setter

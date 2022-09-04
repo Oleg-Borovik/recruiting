@@ -1,6 +1,5 @@
 package com.task.recruiting.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.task.recruiting.businessLogic.ResponseLogic;
 import com.task.recruiting.entity.ResponseCategory;
 import com.task.recruiting.entity.Resume;
@@ -11,40 +10,51 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ *  Контроллер резюме
+ */
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class ResumeController {
     private final ResumeRepo resumeRepo;
     private final ResponseLogic responseLogic;
-    private final ResponseCategoryRepo responseCategoryRepo;
 
+
+    /**
+     * @param resumeRepo резпозиторий таблицы resume
+     * @param responseLogic сервис для назначения категории кондидату
+     */
     @Autowired
     public ResumeController(ResumeRepo resumeRepo,
-                            ResponseLogic responseLogic,
-                            ResponseCategoryRepo responseCategoryRepo) {
+                            ResponseLogic responseLogic) {
         this.resumeRepo = resumeRepo;
         this.responseLogic = responseLogic;
-        this.responseCategoryRepo = responseCategoryRepo;
     }
 
-    @GetMapping("/getCategoryResume/{id}")
-    public List<Resume> getResume(@PathVariable Long id) {
-        ResponseCategory category = responseCategoryRepo.findById(id).get();
-        return resumeRepo.findByResponseCategory(category);
-    }
 
-    @PostMapping("/setUser")
+    /**
+     * @param resume заполненое резюме клиентом
+     */
+    @PostMapping("/user")
     public void setUser(@RequestBody Resume resume) {
-//        ParserResume parserResume = new ParserResume();
-//        parserResume.parseResume(json);
-
         ResponseCategory category = responseLogic.getLogic(resume).getResponseCategory();
         resume.setResponseCategory(category);
         resumeRepo.save(resume);
-
     }
 
-    @GetMapping("/delete/{id}")
+    /**
+     * @param id категории в базе
+     * @return список резюме с данной категорией
+     */
+    @GetMapping("/user/category/{id}")
+    public List<Resume> getCategoryResume(@PathVariable Long id) {
+        return resumeRepo.findByResponseCategoryId(id);
+    }
+
+    /**
+     * @param id резюме удаляемого резюме
+     */
+    @DeleteMapping("/user/{id}")
     public void delete(@PathVariable Long id) {
         resumeRepo.delete(resumeRepo.findById(id).get());
     }

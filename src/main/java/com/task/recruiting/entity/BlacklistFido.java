@@ -4,9 +4,12 @@ import lombok.Data;
 
 import javax.persistence.*;
 
+/**
+ * Сущность таблицы blacklist_fido
+ */
 @Entity
 @Data
-@Table(name = "BlacklistFido")
+@Table(name = "blacklist_fido")
 public class BlacklistFido {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
